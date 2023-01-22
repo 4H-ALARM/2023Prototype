@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   private Joystick m_rightStick;
 
   private final MotorController m_leftMotor_front = new WPI_VictorSPX(02);
-  private final MotorController m_leftMotor_back = new WPI_VictorSPX(00);
+  private final MotorController m_leftMotor_back = new WPI_VictorSPX(05);
   MotorControllerGroup m_left = new MotorControllerGroup(m_leftMotor_front, m_leftMotor_back);
 
   private final MotorController m_rightMotor_front = new WPI_VictorSPX(03);
@@ -56,7 +56,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    m_myRobot.tankDrive(filter.calculate(xboxpad.getLeftY()), filter.calculate(xboxpad.getRightY()));
+    // m_myRobot.tankDrive(filter.calculate(xboxpad.getLeftY()), filter.calculate(xboxpad.getRightY()));
+    m_myRobot.tankDrive(0.5*xboxpad.getLeftY(), 0.5*xboxpad.getRightY());
+
 
     if (xboxpad.getAButtonPressed()) {
       clawmotor.set(0.7);
