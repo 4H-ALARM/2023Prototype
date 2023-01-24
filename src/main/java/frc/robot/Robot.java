@@ -36,9 +36,11 @@ public class Robot extends TimedRobot {
 
   final XboxController xboxpad = new XboxController(0);
 
-  private final MotorController clawmotor = new WPI_VictorSPX(4);
+  private final MotorController clawmotor = new WPI_VictorSPX(04);
 
   private final MotorController pulleymotor = new WPI_VictorSPX(17); 
+
+  private final MotorController teliscopic = new WPI_VictorSPX(06);
 
   SlewRateLimiter filter = new SlewRateLimiter(0.5);
 
@@ -89,6 +91,22 @@ public class Robot extends TimedRobot {
     }
     if (xboxpad.getXButtonReleased()) {
       pulleymotor.stopMotor();
+
+    }
+
+
+    if (xboxpad.getRightBumperPressed()) {
+      teliscopic.set(-0.8);
+    }
+    if (xboxpad.getRightBumperReleased()) {
+      teliscopic.stopMotor();
+    }
+
+    if (xboxpad.getLeftBumperPressed()) {
+      teliscopic.set(0.8);
+    }
+    if (xboxpad.getLeftBumperReleased()) {
+      teliscopic.stopMotor();  
 
     }
   }
