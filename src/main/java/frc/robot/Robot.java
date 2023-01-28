@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.Servo;
 
 
 /**
@@ -33,6 +34,8 @@ public class Robot extends TimedRobot {
   private final MotorController m_rightMotor_front = new WPI_VictorSPX(03);
   private final MotorController m_rightMotor_back = new WPI_VictorSPX(01);
   MotorControllerGroup m_right = new MotorControllerGroup(m_rightMotor_front, m_rightMotor_back);
+
+  private final Servo m_wristServo = new Servo(3);
 
   final XboxController xboxpad = new XboxController(0);
 
@@ -63,14 +66,14 @@ public class Robot extends TimedRobot {
 
 
     if (xboxpad.getAButtonPressed()) {
-      clawmotor.set(0.7);
+      clawmotor.set(1);
     }
     if (xboxpad.getAButtonReleased()) {
       clawmotor.stopMotor();
     }
 
     if (xboxpad.getBButtonPressed()) {
-      clawmotor.set(-0.9);
+      clawmotor.set(-1);
     }
     if (xboxpad.getBButtonReleased()) {
       clawmotor.stopMotor();
@@ -109,5 +112,27 @@ public class Robot extends TimedRobot {
       teliscopic.stopMotor();  
 
     }
+    if (xboxpad.getRightStickButtonPressed()) {
+      wristDown();
+    }
+
+    if (xboxpad.getLeftStickButtonPressed()) {
+      wristUp();
+    }
+
   }
+
+  private void wristDown(){
+    // m_gateposition-=k_gateIncrement; // decrements m_gateposition by a certain amount
+    m_wristServo.setAngle(90.0);
+    
+  }
+
+  // bring up gate
+  public void wristUp(){
+    // m_gateposition+=k_gateIncrement;  // increments m_gateposition by a certain amount
+    m_wristServo.setAngle(-90.0);
+    
+  }
+
 }
